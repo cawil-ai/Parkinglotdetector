@@ -1,23 +1,23 @@
-import React from 'react'
+import React, {useRef, forwardRef} from 'react'
 
-export default function VideoInput(props) {
-    const { width, height } = props;
+const VideoInput=forwardRef(({width, height ,source, setSource},ref)=>{
+    // const { width, height ,source, setSource} = props;
+    const videoRef = useRef();
+    const inputRef = useRef();
 
-    const inputRef = React.useRef();
-
-    const [source, setSource] = React.useState();
-
-    const handleFileChange = (event) => {
+    //source
+    const handleFileChange = (event) => { //setting the url for the video
     const file = event.target.files[0];
     const url = URL.createObjectURL(file);
     setSource(url);
     };
 
-    console.log(width, height);
-
     const handleChoose = (event) => {
     inputRef.current.click();
     };
+    console.log(inputRef);
+    console.log(videoRef);
+
 
     return (
     <div className="VideoInput">
@@ -28,9 +28,12 @@ export default function VideoInput(props) {
         onChange={handleFileChange}
         accept=".mov,.mp4"
         />
+
+        
         {!source && <button onClick={handleChoose}>Choose</button>}
         {source && (
         <video
+            ref={videoRef}
             className="VideoInput_video"
             width="100%"
             height={height}
@@ -38,9 +41,8 @@ export default function VideoInput(props) {
             src={source}
         />
         )}
-        <div className="VideoInput_footer">{source || "Nothing selectd"}</div>
+        <div className="VideoInput_footer">{source || "Nothing selected"}</div>
     </div>
     );
-}
-  
-
+})
+export default VideoInput
