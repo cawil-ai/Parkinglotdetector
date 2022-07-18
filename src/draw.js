@@ -1,16 +1,25 @@
 // Define our labelmap
 const labelMap = {
-    1:{name:'vacant', color:'red'},
-    2:{name:'occupied', color:'yellow'},
+    1:{name:'occupied', color:'red'},
+    2:{name:'vacant', color:'yellow'},
 }
 
 // Define a drawing function
-export const drawRect = (boxes, classes, scores, threshold, imgWidth, imgHeight, ctx)=>{
+export const drawRect = (boxes, classes, scores, threshold, imgWidth, imgHeight, ctx, setVacantCount, setOccupiedCount)=>{
+    
+    setVacantCount(prev=>0)
+    setOccupiedCount(prev=>0)
     for(let i=0; i<=boxes.length; i++){
         if(boxes[i] && classes[i] && scores[i]>threshold){
+
             // Extract variables
             const [y,x,height,width] = boxes[i]
             const text = classes[i]
+            console.log(text);
+
+            if (text===1){setOccupiedCount(prev=>prev+1)}
+            if (text===2) {setVacantCount(prev=> prev+1)}
+
             
             // Set styling
             ctx.strokeStyle = labelMap[text]['color']
