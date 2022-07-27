@@ -35,7 +35,6 @@ function VideoUpload(props, videoRef) {
                 className="VideoInput_video"
                 width="100%"
                 height={height}
-                autoPlay
 
                 src={source}
                 style={{

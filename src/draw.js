@@ -15,7 +15,7 @@ export const drawRect = (boxes, classes, scores, threshold, imgWidth, imgHeight,
             // Extract variables
             const [y,x,height,width] = boxes[i]
             const text = classes[i]
-            console.log(text);
+
 
             if (text===1){setOccupiedCount(prev=>prev+1)}
             if (text===2) {setVacantCount(prev=> prev+1)}
