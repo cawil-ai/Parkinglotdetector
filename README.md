@@ -30,5 +30,4 @@ Download the [video](https://drive.google.com/file/d/1rOHgSHtArA_He6b1lBayTM_Xjp
 
 ## The Limitation
 1. Still need to improve the AI.
-2. When uploading, some aspect ratio don't work.
-3. The video load first than the detections.
+

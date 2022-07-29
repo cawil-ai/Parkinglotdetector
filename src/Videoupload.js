@@ -1,8 +1,10 @@
-import React, { useRef, forwardRef}from 'react'
+import React, { useRef, forwardRef} from 'react'
+import { Form,Container} from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 //uploading the video
 function VideoUpload(props, videoRef) {
-    const {height, source, setSource}=props
+    const {height, source, setSource,occupiedCount ,vacantCount}=props
     const inputRef = useRef();
 
     //source
@@ -19,16 +21,39 @@ function VideoUpload(props, videoRef) {
 
     return (
         <>
-            <input
-            ref={inputRef}
-            className="VideoInput_input"
-            type="file"
-            onChange={handleFileChange}
-            accept=".mov,.mp4"
-            />
+            <Form.Group controlId="formFile" className="mb-3">
+                <Form.Control 
+                ref={inputRef} 
+                onChange={handleFileChange} 
+                type="file" 
+                accept=".mov,.mp4"/>
+            </Form.Group>
+            {source && 
+            <Container className="Aux">
+                <Container className="PlayPause"> 
 
-            
-            {!source && <button onClick={handleChoose}>Choose</button>}
+                <img width="50" height="50" 
+                onClick={()=> {videoRef.current.play()}} 
+                src="./play-circle.svg"
+                onMouseOver={e=>e.currentTarget.src="./play-circle-fill.svg"}
+                onMouseOut={e=>e.currentTarget.src="./play-circle.svg"}
+                />
+                
+                <img width="50" height="50" 
+                onClick={() => { videoRef.current.pause() }}
+                src="./pause-circle.svg"
+                onMouseOver={e=>e.currentTarget.src="./pause-circle-fill.svg"}
+                onMouseOut={e=>e.currentTarget.src="./pause-circle.svg"}
+                />
+                </Container>
+
+                <Container className="Counter">
+                <h3>Vacant: {vacantCount}</h3>
+                <h3>Occupied: {occupiedCount}</h3>
+                </Container>
+            </Container>
+
+            }
             {source && (
             <video
                 ref={videoRef}
@@ -44,18 +69,7 @@ function VideoUpload(props, videoRef) {
 
             /> 
             )}
-            {/* {source && (
-            <video
-                className="VideoInput_video"
-                width="100%"
-                height={height}
-                src={source}
-                autoPlay
-            /> 
-            )} */}
-
-
-            <div className="VideoInput_footer">{source || "Nothing selected"}</div>
+            
         </>
             
     )
@@ -64,12 +78,6 @@ export default forwardRef(VideoUpload)
 
 
 
-// {/* <h1>{`Show Video source: ${source}`}</h1>
-//             {/* <img ref={imgRef} src="logo512.png" /> */}
+
 
 //             <button onClick={() => setBool(prev => !prev)}> Change {bool ? "true" : "false"}</button>
-//             {bool && <video ref={videoRef}
-//                 width="100%"
-//                 height={340}
-//                 controls
-//                 src="app3.mp4" />} */}

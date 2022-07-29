@@ -6,6 +6,9 @@ import { drawRect } from "./draw";
 import VideoUpload from "./VideoUpload";
 import "./index.css"
 
+import {Container, Button, Card } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 function App() {
   const [source, setSource] = useState(); // the source of the video
   const videoRef = useRef(null); //ref for the video that wil be playing
@@ -20,8 +23,8 @@ function App() {
   const detection = async (model) => {
 
 
-    //the detection
-    if (videoRef.current !== null ) {
+    //the detection 
+    if (videoRef.current !== null && videoRef.current.paused==false) {
       
       const video = videoRef.current
       const videoWidth = videoRef.current.videoWidth;
@@ -30,8 +33,8 @@ function App() {
       // Set canvas height and width
       canvasRef.current.width = videoWidth;
       canvasRef.current.height = videoHeight;
-
-      console.log("hello"); //, videoWidth, videoHeight, video
+      
+      
 
       const img = tf.browser.fromPixels(video)
       const resized = tf.image.resizeBilinear(img, [640, 480])
@@ -41,6 +44,8 @@ function App() {
 
       // console.log(await obj[0].array()); //7 classes; 2 boxes?
       //3 5 preprocessed 4 negative 6 1 whole number 
+      console.log(canvasRef);
+      console.log(videoRef);
       const boxes = await obj[2].array()
       const classes = await obj[7].array()
       const scores = await obj[0].array()
@@ -52,7 +57,7 @@ function App() {
       // 5. TODO - Update drawing utility
       // drawSomething(obj, ctx)  
       requestAnimationFrame(() => { drawRect(boxes[0], classes[0], scores[0], 0.3, videoWidth, videoHeight, ctx, setVacantCount, setOccupiedCount) });
-
+      
       tf.dispose(img)
       tf.dispose(resized)
       tf.dispose(casted)
@@ -71,63 +76,46 @@ function App() {
     // console.log(videoRef);
     // console.log(source);
     // console.log(canvasRef);
-    console.log("1Model Loaded");
+    console.log("Model Loaded");
 
-
-
-    setInterval(() => { detection(model) }, 10000);
+    setInterval(() => { detection(model) },150);
   }
-
-
 
   useEffect(() => { runDetection() }, [])
 
-
   return (
-    <div className="App">
+    <Container className="MainCon"> 
+    <Card >
       <h1>Parking lot Detector</h1>
-      <h3>Vacant:{vacantCount}</h3>
-      <h3>Occupied: {occupiedCount}</h3>
-
-      {source &&
-        <button type="button"
-          onClick={()=> {videoRef.current.play()}}> Play </button>}
-
-
-      {source  &&
-        <button type="button"
-          onClick={() => { videoRef.current.pause() }}> Pause </button>
-      }
-
+    
       <VideoUpload
         height={480}
         ref={videoRef}
         source={source}
         setSource={setSource}
+        occupiedCount={occupiedCount}
+        vacantCount={vacantCount}
 
       />
       {source && <canvas
         ref={canvasRef}
-        className="canvas"
-        style={{
-
+        className="Canvas"
+        style={{    
           position: 'absolute',
           marginLeft: 'auto',
           marginRight: 'auto',
           left: 0,
           right: 0,
-          top: 160,
+          top: 280,
           textAlign: 'center',
           zIndex: 20,
-          width: 480,
-          height: 480
-
-
-        }}
+          height: 480,
+          width: 480
+      }}
       />}
-
-
-    </div>
+    </Card>
+    </Container>
+    
   );
 }
 
