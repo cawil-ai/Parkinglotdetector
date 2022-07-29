@@ -24,7 +24,7 @@ After that is to go to the folder ` tfjs` and run the command below:
 Finally, it to refresh the [http://localhost:3000](http://localhost:3000).
 
 ## The Video
-Download the [video](https://drive.google.com/file/d/1rOHgSHtArA_He6b1lBayTM_XjpmtkGfS/view?usp=sharing) and use it to test the program.
+Download the [video](https://drive.google.com/file/d/1n9JgbZImzlfR_q3sk-ofbloH6vZF5wwL/view?usp=sharing) and use it to test the program.
 
 **_NOTE: The video is from the training set. This is to test the web app first._**
 
