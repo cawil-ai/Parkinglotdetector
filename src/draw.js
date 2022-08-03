@@ -1,20 +1,23 @@
 // Define our labelmap
 const labelMap = {
     1:{name:'occupied', color:'red'},
-    2:{name:'vacant', color:'yellow'},
+    2:{name:'vacant', color:'#00ff15'},
 }
 
 // Define a drawing function
 export const drawRect = (boxes, classes, scores, threshold, imgWidth, imgHeight, ctx, setVacantCount, setOccupiedCount)=>{
-    
+
     setVacantCount(prev=>0)
     setOccupiedCount(prev=>0)
     for(let i=0; i<=boxes.length; i++){
-        if(boxes[i] && classes[i] && scores[i]>threshold){
+
+
+        if(boxes[i]&& classes[i] && scores[i]>threshold){
 
             // Extract variables
             const [y,x,height,width] = boxes[i]
-            const text = classes[i]
+            const text = classes[i];
+
 
 
             if (text===1){setOccupiedCount(prev=>prev+1)}

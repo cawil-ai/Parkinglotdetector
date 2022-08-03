@@ -35,28 +35,25 @@ function App() {
       canvasRef.current.height = videoHeight;
       
       
-
-      const img = tf.browser.fromPixels(video)
-      const resized = tf.image.resizeBilinear(img, [640, 480])
+      const img = tf.browser.fromPixels(video);
+      const resized = tf.image.resizeBilinear(img, [640, 640]);
       const casted = resized.cast('int32')
       const expanded = casted.expandDims(0)
       const obj = await model.executeAsync(expanded)
 
-      // console.log(await obj[0].array()); //7 classes; 2 boxes?
-      //3 5 preprocessed 4 negative 6 1 whole number 
-      console.log(canvasRef);
-      console.log(videoRef);
+
+
       const boxes = await obj[2].array()
-      const classes = await obj[7].array()
+      const classes = await obj[1].array()
       const scores = await obj[0].array()
 
 
-      // Draw mesh
+      // // Draw mesh
       const ctx = canvasRef.current.getContext("2d");
 
-      // 5. TODO - Update drawing utility
-      // drawSomething(obj, ctx)  
-      requestAnimationFrame(() => { drawRect(boxes[0], classes[0], scores[0], 0.3, videoWidth, videoHeight, ctx, setVacantCount, setOccupiedCount) });
+      // // 5. TODO - Update drawing utility
+      // drawSomething 
+      requestAnimationFrame(() => { drawRect(boxes[0], classes[0], scores[0], 0.55, videoWidth, videoHeight, ctx, setVacantCount, setOccupiedCount) });
       
       tf.dispose(img)
       tf.dispose(resized)
@@ -72,13 +69,9 @@ function App() {
     //uploading the model
     const model = await tf.loadGraphModel("http://127.0.0.1:8080/model.json")
 
-    // console.log(model);
-    // console.log(videoRef);
-    // console.log(source);
-    // console.log(canvasRef);
     console.log("Model Loaded");
 
-    setInterval(() => { detection(model) },150);
+    setInterval(() => { detection(model) },1000);
   }
 
   useEffect(() => { runDetection() }, [])
@@ -121,7 +114,5 @@ function App() {
 
 export default App;
 
-  // if (source !== undefined ){ //&& videoRef.current !== null
-  //   // console.log(videoRef)
 
 
