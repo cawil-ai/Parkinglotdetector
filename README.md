@@ -1,5 +1,5 @@
-# PARKING LOT DETECTOR WEB APP FOR A 360°-CAMERA OF CARS: 
 
+# Parking Lot Detector Web App for 360°-Camera of Cars
 
 ## Run the Program
 
