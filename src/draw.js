@@ -1,11 +1,18 @@
+
+import {writeuserData} from "./firebase"
+
 // Define our labelmap
 const labelMap = {
     1:{name:'occupied', color:'red'},
     2:{name:'vacant', color:'#00ff15'},
 }
 
+let count=0;
 // Define a drawing function
-export const drawRect = (boxes, classes, scores, threshold, imgWidth, imgHeight, ctx, setVacantCount, setOccupiedCount)=>{
+export const drawRect = ( boxes, classes, scores, 
+    threshold, imgWidth, imgHeight,
+    ctx, setVacantCount, setOccupiedCount,
+    currentTime)=>{
 
     setVacantCount(prev=>0)
     setOccupiedCount(prev=>0)
@@ -18,6 +25,9 @@ export const drawRect = (boxes, classes, scores, threshold, imgWidth, imgHeight,
             const [y,x,height,width] = boxes[i]
             const text = classes[i];
 
+            //disable the writing into the database
+            // writeuserData( count ,boxes[i], classes[i], scores[i], currentTime)
+            count++;
 
 
             if (text===1){setOccupiedCount(prev=>prev+1)}

@@ -1,6 +1,9 @@
 import React, { useRef, forwardRef} from 'react'
 import { Form,Container} from 'react-bootstrap';
+import {uploadFile } from "./firebase.js"
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+
 
 //uploading the video
 function VideoUpload(props, videoRef) {
@@ -12,10 +15,7 @@ function VideoUpload(props, videoRef) {
     const file = event.target.files[0];
     const url = URL.createObjectURL(file);
     setSource(url);
-    };
-
-    const handleChoose = (event) => {
-    inputRef.current.click();
+    // uploadFile(file);
     };
 
 
@@ -79,5 +79,3 @@ export default forwardRef(VideoUpload)
 
 
 
-
-//             <button onClick={() => setBool(prev => !prev)}> Change {bool ? "true" : "false"}</button>
