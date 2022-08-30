@@ -3,7 +3,7 @@
 
 ## Database Architecture
 The database follow this diagram:
-![diagram](uml.JPG) 
+![diagram](uml2.JPG) 
 
 The Detections will store the boxes which is a 4 element array; the classes which can either be 1 or 2; the score of the percentage of the prediction; Time is time of the detection in the video; and the videoId or the filename of the video.
 
