@@ -1,5 +1,13 @@
 
-# Parking Lot Detector Web App for 360°-Camera of Cars
+# Parking Lot Detector Web App for 360°-Camera of Cars With Database for Detections
+
+## Database Architecture
+The database follow this diagram:
+![diagram](uml.JPG) 
+
+The Detections will store the boxes which is a 4 element array; the classes which can either be 1 or 2; the score of the percentage of the prediction; Time is time of the detection in the video; and the videoId or the filename of the video.
+
+The Detection will be dependent on the video and the video file name.
 
 ## Run the Program
 
